@@ -132,7 +132,8 @@ def get_readable_message():
         globals()['COUNT'] -= STATUS_LIMIT
         globals()['PAGE_NO'] -= 1
     for download in list(download_dict.values())[COUNT:STATUS_LIMIT+COUNT]:
-        msg += f"<b>{download.status()}</b>: <code>{escape(str(download.name()))}</code>"
+        msg += f"📁 Name : <code>{escape(str(download.name()))}</code>"
+        msg += f"<b>\nStatus :{download.status()}</b>"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
             msg += f"\n{get_progress_bar_string(download.progress())} {download.progress()}"
             msg += f"\n<b>Processed</b>: {download.processed_bytes()} of {download.size()}"
@@ -150,7 +151,7 @@ def get_readable_message():
             msg += f" | <b>Time</b>: {download.seeding_time()}"
         else:
             msg += f"\n<b>Size</b>: {download.size()}"
-        msg += f"\n<b>Source</b>: {download.source}"
+        msg += f"\n<b>Task By</b>: {download.source}"
         msg += f"\n<b>Elapsed</b>: {get_readable_time(time() - download.startTime)}"
         msg += f"\n<b>Engine</b>: {download.engine}"
         msg += f"\n<b>Upload</b>: {download.mode}"
